@@ -14,8 +14,9 @@ const Contacts = () => {
                         <>
                         <div key={contact.id}>
                         <ContactCard key={contact.id} name={contact.name} phone={contact.phone} email={contact.email} address={contact.address} />
-                        <button>Update</button>
-                        <button onClick={() => actions.deleteContact(contact.id)}>Delete</button>
+                        <button onClick={() => actions.updateContact(contact.id)}>Update</button>
+                        <button onClick={() => actions.deleteContact(contact.id)}>DELETE</button> 
+                        <i class="fa-solid fa-trash-can"></i>
                         </div>
                         </>
                     )

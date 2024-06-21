@@ -13,20 +13,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 					fetch().then().then(data => setStore({ "foo": data.bar }))
 				*/
 			},
-			// // changeColor: (index, color) => {
-			// 	//get the store
-			// 	const store = getStore();
-
-			// 	//we have to loop the entire demo array to look for the respective index
-			// 	//and change its color
-			// 	const demo = store.demo.map((elm, i) => {
-			// 		if (i === index) elm.background = color;
-			// 		return elm;
-			// 	});
-
-			// 	//reset the global store
-			// 	setStore({ demo: demo });
-			// }
 
 			//GET SINGLE AGENDA
 			loadAgendaContacts: async (contactObj) => {
@@ -60,13 +46,33 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 
 				getActions().loadAgendaContacts();
-				
+			},
+
+			updateContact: async (contactId, updatedContactData) => {
+				const response = await fetch(`https://playground.4geeks.com/contact/agendas/mylikk/contacts/${contactId}`, {
+					method: "PUT",
+					body: JSON.stringify(updatedContactData),
+					headers: {
+						'Content-Type': 'application/json'
+					}
+				});
+
+				if (!response.ok) {
+					throw new Error(`${response.status} - ${response.statusText}`);
+				}
+
+				const updatedContact = await response.json();
+				const updatedContacts = getStore().contacts.map(contact => {
+					if (contact.id === contactId) {
+						return updatedContact;
+					}
+					return contact;
+				});
+				setStore({ contacts: updatedContacts });
 			}
-
-			
-
 		}
 	};
 };
 
 export default getState;
+
