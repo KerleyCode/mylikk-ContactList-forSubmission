@@ -2,8 +2,9 @@ import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
 
-export const ContactCard = ({ name, phone, email, address }) => {
+export const ContactCard = ({ name, phone, email, address, id }) => {
     const { store, actions } = useContext(Context)
+
     return (
 
 
@@ -30,7 +31,8 @@ export const ContactCard = ({ name, phone, email, address }) => {
 
             </div>
             <div>
-                <Link to={"/update-contact/" + contact.id}>
+                <Link to={"/update-contact/" + id}>{ }
+
                     <svg xmlns="http://www.w3.org/2000/svg"
                         width="16"
                         height="16"
@@ -50,7 +52,7 @@ export const ContactCard = ({ name, phone, email, address }) => {
                     fill="currentColor"
                     className="bi bi-trash-fill"
                     viewBox="0 0 16 16"
-                    onClick={() => actions.deleteContact(contact.id)}>
+                    onClick={() => actions.deleteContact(id)}>
                     <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0" />
                 </svg>
             </div>

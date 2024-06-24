@@ -21,9 +21,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 					throw new Error(response.status, response.statusText)
 				}
 				const data = await response.json();
-				setStore({contacts: data.contacts});
+				setStore({ contacts: data.contacts });
 			},
-			
+
 			createNewContact: async () => {
 				const response = await fetch("https://playground.4geeks.com/contact/agendas/mylikk/contacts", {
 					method: "POST",
@@ -31,17 +31,17 @@ const getState = ({ getStore, getActions, setStore }) => {
 					headers: {
 						'Content-Type': 'application/json'
 					}
-			})
-			if(!response.ok) {
-				throw new Error(response.status, response.statusText)
-			}
-		},
+				})
+				if (!response.ok) {
+					throw new Error(response.status, response.statusText)
+				}
+			},
 
 			deleteContact: async (contactId) => {
 				const response = await fetch(`https://playground.4geeks.com/contact/agendas/mylikk/contacts/${contactId}`, {
 					method: "DELETE"
 				});
-				if(!response.ok) {
+				if (!response.ok) {
 					throw new Error(response.status, response.statusText)
 				}
 
@@ -49,27 +49,32 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 
 			updateContact: async (contactId, updatedContactData) => {
-				const response = await fetch(`https://playground.4geeks.com/contact/agendas/mylikk/contacts/${contactId}`, {
-					method: "PUT",
-					body: JSON.stringify(updatedContactData),
-					headers: {
-						'Content-Type': 'application/json'
+				const response = await fetch(
+					`https://playground.4geeks.com/contact/agendas/mylikk/contacts/${contactId}`,
+					{
+						method: "PUT",
+						body: JSON.stringify(updatedContactData),
+						headers: {
+							"Content-Type": "application/json",
+						},
 					}
-				});
+				);
 
 				if (!response.ok) {
 					throw new Error(`${response.status} - ${response.statusText}`);
 				}
 
 				const updatedContact = await response.json();
-				const updatedContacts = getStore().contacts.map(contact => {
+				const updatedContacts = getStore().contacts.map((contact) => {
 					if (contact.id === contactId) {
 						return updatedContact;
 					}
 					return contact;
 				});
 				setStore({ contacts: updatedContacts });
-			}
+				return updatedContact;
+			},
+
 		}
 	};
 };

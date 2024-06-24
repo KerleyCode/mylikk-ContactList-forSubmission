@@ -15,11 +15,12 @@ export const Home = () => {
 				{store.contacts?.map(contact => {
 					return (
 
-
-						<div key={contact.id}>
-							<ContactCard key={contact.id} name={contact.name} phone={contact.phone} email={contact.email} address={contact.address} />
-
-						</div>
+						<ContactCard key={contact.id}
+							name={contact.name}
+							phone={contact.phone}
+							email={contact.email}
+							address={contact.address}
+							id={contact.id} />
 
 
 					)
