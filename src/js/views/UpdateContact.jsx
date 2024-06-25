@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react"
 import { Context } from "../store/appContext";
-import { Link, useParams } from "react-router-dom";
+import { Link, NavLink, useParams, useNavigate } from "react-router-dom";
 
 
 export const UpdateContact = () => {
@@ -11,7 +11,9 @@ export const UpdateContact = () => {
     "phone": "",
     "email": "",
     "address": ""
-  })
+  });
+  const navigate = useNavigate();
+
   useEffect(() => {
     let data = store.contacts.find((c) => c.id == params.contactId)
     setContact(data)
@@ -22,13 +24,14 @@ export const UpdateContact = () => {
       await actions.updateContact(params.contactId, contact);
       // Optionally, you can navigate to a different page or display a success message
       // after the update is successful
+      navigate('/');
     } catch (error) {
       console.error("Error updating contact:", error);
       // Handle the error, e.g., display an error message to the user
     }
   };
 
-  
+
 
 
   return (
@@ -94,14 +97,20 @@ export const UpdateContact = () => {
         </div>
 
 
-        <div class="justify-content-center">
-          <button onClick={handleUpdateContact} className="btn btn-primary w-100">
+        <div className="justify-content-center">
+          <button
+            onClick={() => {
+              handleUpdateContact();
+              navigate('/');
+            }}
+            className="btn btn-primary w-100"
+          >
             SAVE
           </button>
-
         </div>
 
-        <div class="d-flex align-items-left" ><a href="./">or Back to Contacts</a>
+        <div className="d-flex align-items-left">
+          <a href="/">or Back to Contacts</a>
         </div>
 
 
