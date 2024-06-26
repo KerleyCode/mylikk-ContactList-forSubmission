@@ -9,9 +9,11 @@ import "../../styles/home.css";
 export const Home = () => {
 	const { store, actions } = useContext(Context)
 	return (
-		<div className="text-center mt-5">
-			<Link to="/add-contact"><button className="btn btn-success">Add Contact</button></Link>
-			<div>
+		<div className="text-end mt-5">
+			<div  className="text-end mt-5 px-5">
+			<Link to="/add-contact"><button className="btn btn-success">Add new Contact</button></Link>
+			</div>
+			<div className="px-5 mt-3">
 				{store.contacts?.map(contact => {
 					return (
 
